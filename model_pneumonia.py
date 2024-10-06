@@ -22,21 +22,6 @@ IMG_WIDTH = 224
 IMG_HEIGHT = 224
 NUM_CATEGORIES = 3 #NORMAL/BACTERIA PNEUMONIA/VIRAL PNEUMONIA
 
-# Define a custom callback to adjust dropout rate
-# class AdjustDropoutCallback(tf.keras.callbacks.Callback):
-#     def on_epoch_end(self, epoch, logs=None):
-#         validation_loss = logs.get('val_loss')
-#         if validation_loss is not None:
-#             current_dropout = self.model.layers[-2].rate
-#             if validation_loss > 10:  # You can adjust this threshold as needed
-#                 new_dropout = min(current_dropout + 0.1, 0.5)
-#                 print(f'Increasing dropout to {new_dropout}')
-#                 self.model.layers[-2].rate = new_dropout
-#             elif validation_loss < 5:  # You can adjust this threshold as needed
-#                 new_dropout = max(current_dropout - 0.1, 0.1)
-#                 print(f'Decreasing dropout to {new_dropout}')
-#                 self.model.layers[-2].rate = new_dropout
-
 def show_progress(current_image, total_images):
     progress = current_image / total_images
     bar_length = 40
@@ -57,11 +42,11 @@ def load_data(dir, data_dir, size):
         category_dir = os.path.join(data_dir, category)
 
         if not os.path.isdir(category_dir):
-            continue  # Skip non-directory files
+            continue 
         
         for image_file in os.listdir(category_dir):
             if image_file.startswith(".DS_Store"):
-                continue  # Skip .DS_Store files
+                continue  
 
             image_path = os.path.join(category_dir, image_file)
             image = cv2.imread(image_path)
